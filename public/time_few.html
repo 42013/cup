@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>倒计时</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-size: cover; /* 背景图片铺满整个页面 */
+            background-repeat: no-repeat;
+            font-family: Arial, sans-serif; /* 使用 sans-serif 字体以确保兼容性 */
+            color: white; /* 设置字体颜色为白色 */
+            text-align: center; /* 文字居中 */
+            padding-top: 100px; /* 距离顶部的间距 */
+        }
+
+        h1 {
+            font-size: 36px; /* 设置标题字体大小 */
+            font-weight: bold; /* 设置标题字体加粗 */
+            margin-bottom: 20px; /* 设置标题下方的间距 */
+        }
+
+        #countdown1, #countdown2 {
+            font-size: 24px; /* 设置倒计时字体大小 */
+        }
+    </style>
+</head>
+<body style="background-image: url('./images/team/team.webp');">
+    <h1>距离2024年7月13日(魔方与擂台省赛)还有：</h1>
+    <div id="countdown1"></div>
+
+    <h1>距离2024年7月30日（起重机省赛）还有：</h1>
+    <div id="countdown2"></div>
+ 
+    <script>
+        // 目标日期
+        var targetDate1 = new Date("2024-07-13T08:00:00");
+        var targetDate2 = new Date("2024-07-30T08:00:00");
+
+        // 更新倒计时
+        function updateCountdown() {
+            updateCountdownForTarget("countdown1", targetDate1);
+            updateCountdownForTarget("countdown2", targetDate2);
+
+            // 每秒钟更新一次倒计时
+            setTimeout(updateCountdown, 1000);
+        }
+
+        // 更新指定目标日期的倒计时
+        function updateCountdownForTarget(elementId, target) {
+            var now = new Date();
+            var timeLeft = target - now;
+
+            // 计算剩余的天、小时、分钟和秒
+            var days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+            // 更新页面上的倒计时显示
+            document.getElementById(elementId).innerHTML = days + "天 " + hours + "小时 " + minutes + "分钟 " + seconds + "秒";
+        }
+
+        // 启动倒计时
+        updateCountdown();
+    </script>
+</body>
+</html>
