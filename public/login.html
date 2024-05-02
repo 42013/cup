@@ -46,34 +46,47 @@
         </div>
     </section>
 	<script>
-		function login() {
-		    const username = document.getElementById('username').value; // 直接获取输入框的值，不应该有额外的引号
-		    const password = document.getElementById('password').value;
+		export async function onRequest(context) {
+		  // 提取POST请求的用户名和密码
+		  const requestBody = await context.request.json();
+		  const { username, password } = requestBody;
 		
-		    fetch(`http://192.168.1.102/user/login`, {
-		        method: 'POST',
-		        headers: {
-		            'Content-Type': 'application/json'
-		        },
-		        body: JSON.stringify({
-		            username: username,
-		            password: password
-		        })
-		    })
-		    .then(response => response.json())
-		    .then(data => {
-		        if (data.success) {
-		            document.getElementById('loginResult').innerHTML = '登录成功';
-		            window.location.href = 'https://cup-2cq.pages.dev/'; 当前页面跳转
-		        } else {
-		            document.getElementById('loginResult').innerHTML = '用户名或密码错误';
-		        }
-		    })
-		    .catch(error => {
-		        console.error('登录失败:', error);
-		        document.getElementById('loginResult').innerHTML = '登录失败，请稍后重试';
+		  // 获取D1数据库绑定
+		  const database = context.env.NORTHWIND_DB;
+		
+		  try {
+		    // 使用D1数据库查询用户名和密码
+		    const user = await database.query({
+		      text: 'SELECT * FROM users WHERE username = $1 AND password = $2',
+		      args: [username, password]
 		    });
+		
+		    // 如果找到匹配的用户，则返回成功消息
+		    if (user.length > 0) {
+		      return new Response(JSON.stringify({ success: true }), {
+		        headers: {
+		          'Content-Type': 'application/json'
+		        }
+		      });
+		    } else {
+		      // 如果没有匹配的用户，则返回错误消息
+		      return new Response(JSON.stringify({ success: false, message: '用户名或密码错误' }), {
+		        headers: {
+		          'Content-Type': 'application/json'
+		        }
+		      });
+		    }
+		  } catch (error) {
+		    console.error('数据库查询失败:', error);
+		    // 如果数据库查询出现错误，则返回错误消息
+		    return new Response(JSON.stringify({ success: false, message: '登录失败，请稍后重试' }), {
+		      headers: {
+		        'Content-Type': 'application/json'
+		      }
+		    });
+		  }
 		}
+
 		
 	</script>
 </body>
