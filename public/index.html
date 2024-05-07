@@ -561,12 +561,20 @@
 
 	<script>
 		const welcomeMessageElement = document.getElementById('welcomeMessage');
+		const initialMessage = '未登录，点击登录';
+		if (!welcomeMessageElement.textContent || welcomeMessageElement.textContent === initialMessage) {
+		  welcomeMessageElement.textContent = initialMessage;
+		}
 		
+		// 监听来自指定来源的消息
 		window.addEventListener('message', function(event) {
 		  if (event.origin === 'https://prisma-d1-example.3109613603.workers.dev/' && event.data === 'ok') {
 		    // 处理消息
 		    console.log('Received OK message from source website');
-			 welcomeMessageElement.textContent = '欢迎光临！';
+		    // 如果当前文本不是欢迎信息，则更新文本
+		    if (welcomeMessageElement.textContent !== '欢迎光临！') {
+		      welcomeMessageElement.textContent = '欢迎光临！';
+		    }
 		  }
 		});
 		$(document).on("ready", function(e) {
