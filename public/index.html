@@ -54,6 +54,7 @@
         <div class="col-sm-12 col-xs-12 col-md-9">
            <nav id="desktop-menu">
               <ul class="sf-menu" id="navigation">
+				 <h4 id="welcomeMessage">未登录，点击登录</h4>
                  <li><a href="index.html">主页</a></li>
                  <li><a href="match_link.html" target="_blank">比赛链接</a></li>
                  <li><a href="team_leader.html" target="_blank">历届队长</a></li>
@@ -559,6 +560,15 @@
 	<script src="js/custom.js"></script>
 
 	<script>
+		const welcomeMessageElement = document.getElementById('welcomeMessage');
+		
+		window.addEventListener('message', function(event) {
+		  if (event.origin === 'https://prisma-d1-example.3109613603.workers.dev/' && event.data === 'ok') {
+		    // 处理消息
+		    console.log('Received OK message from source website');
+			 welcomeMessageElement.textContent = '欢迎光临！';
+		  }
+		});
 		$(document).on("ready", function(e) {
 			// ______________ SLIDERS
 			var sync1 = $("#mainslider");
