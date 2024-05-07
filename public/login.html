@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
  
 <head>
@@ -12,18 +12,15 @@
  
 <body onload="randoms()">
     <section>
-        <!-- 背景颜色 -->
         <div class="color"></div>
         <div class="color"></div>
         <div class="color"></div>
         <div class="box">
-            <!-- 背景圆 -->
             <div class="circle" style="--x:0"></div>
             <div class="circle" style="--x:1"></div>
             <div class="circle" style="--x:2"></div>
             <div class="circle" style="--x:3"></div>
             <div class="circle" style="--x:4"></div>
-            <!-- 登录框 -->
             <div class="container">
                 <div class="form">
                     <h2>登录</h2>
@@ -91,4 +88,39 @@
 	</script>
 </body>
  
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>调用 Cloudflare Workers 服务</title>
+</head>
+<body>
+    <h1>调用 Cloudflare Workers 服务</h1>
+    
+    <div id="output"></div>
+
+    <script>
+        fetch('https://your-worker-script.your-account.workers.dev/')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('网络响应异常');
+                }
+                return response.text();
+            })
+            .then(data => {
+                document.getElementById('output').textContent = data;
+            })
+            .catch(error => {
+                console.error('获取数据时出现问题：', error);
+                document.getElementById('output').textContent = '获取数据失败，请重试。';
+            });
+    </script>
+</body>
 </html>
+
+
+
+
+
