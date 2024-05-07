@@ -24,6 +24,7 @@
 
   <!-- Top MiniBar-->
   <section class="topminibar">
+	  <div id="welcomeMessage"></div>
      <div class="row">
         <div class="col-sm-12 col-md-6 col-xs-12">
            <ul class="list-inline">
@@ -557,7 +558,17 @@
 	<script src="js/waves.js"></script>
 	<script src="js/jquery.countdown.js"></script>
 	<script src="js/custom.js"></script>
-
+	<script>
+		const channel = new BroadcastChannel('loginChannel');
+		    channel.onmessage = function(event) {
+		        const message = event.data;
+		        if (message === 'ok') {
+		            // 在页面开头显示欢迎登录消息
+		            const welcomeMessage = document.getElementById('welcomeMessage');
+		            welcomeMessage.textContent = '欢迎登录';
+		        }
+		    }
+    </script>
 	<script>
 		$(document).on("ready", function(e) {
 			// ______________ SLIDERS

@@ -1,32 +1,26 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="utf-8">
-		<title>测试</title>
-	</head>
-	<body>
-		<div id="userData"></div>
-		
-		  <script>
-		    // Fetch data from Cloudflare Workers API
-		    fetch('https://worker-curly-block-d2bc.3109613603.workers.dev/')
-		      .then(response => response.json())
-		      .then(data => {
-		        // Process data and display it on the page
-		        const userDataDiv = document.getElementById('userData');
-		        const userDataHTML = `
-		          <h2>User Data</h2>
-		          <ul>
-		            <li>ID: ${data.id}</li>
-		            <li>Name: ${data.name}</li>
-		            <!-- Add more properties as needed -->
-		          </ul>
-		        `;
-		        userDataDiv.innerHTML = userDataHTML;
-		      })
-		      .catch(error => {
-		        console.error('Error fetching data:', error);
-		      });
-		  </script>
-	</body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome</title>
+</head>
+<body>
+
+<div id="welcomeMessage"></div>
+
+<script>
+    // 监听来自登录频道的消息
+    const channel = new BroadcastChannel('loginChannel');
+    channel.onmessage = function(event) {
+        const message = event.data;
+        if (message === 'ok') {
+            // 在页面开头显示欢迎登录消息
+            const welcomeMessage = document.getElementById('welcomeMessage');
+            welcomeMessage.textContent = '欢迎登录';
+        }
+    }
+</script>
+
+</body>
 </html>
