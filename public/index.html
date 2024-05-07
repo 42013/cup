@@ -54,7 +54,7 @@
         <div class="col-sm-12 col-xs-12 col-md-9">
            <nav id="desktop-menu">
               <ul class="sf-menu" id="navigation">
-				 <h4 id="welcomeMessage"></h4>
+				 <h4 id="welcomeMessage">未登录，点击登录</h4>
                  <li><a href="index.html">主页</a></li>
                  <li><a href="match_link.html" target="_blank">比赛链接</a></li>
                  <li><a href="team_leader.html" target="_blank">历届队长</a></li>
@@ -560,22 +560,44 @@
 	<script src="js/custom.js"></script>
 
 	<script>
-		const welcomeMessageElement = document.getElementById('welcomeMessage');
-		const initialMessage = '未登录，点击登录';
-		if (!welcomeMessageElement.textContent || welcomeMessageElement.textContent === initialMessage) {
-		  welcomeMessageElement.textContent = initialMessage;
-		}
+		const https = require('https');
 		
-		// 监听来自指定来源的消息
-		window.addEventListener('message', function(event) {
-		  if (event.data === 'ok') {
-		    // 处理消息
-		    console.log('Received OK message from source website');
-		    // 如果当前文本不是欢迎信息，则更新文本
-		    if (welcomeMessageElement.textContent !== '欢迎光临！') {
-		      welcomeMessageElement.textContent = '欢迎光临！';
+		const server = https.createServer((req, res) => {
+		    if (req.method === 'POST' && req.url === '/') {
+		        let data = '';
+		        req.on('data', chunk => {
+		            data += chunk;
+		        });
+		        req.on('end', () => {
+		            try {
+		                const payload = JSON.parse(data);
+		                if (payload.message === 'ok') {
+		                    console.log('收到 "ok" 消息，处理成功');
+		                    // 在这里进行你的处理逻辑，比如记录日志，发送通知等
+		                    res.writeHead(200, { 'Content-Type': 'application/json' });
+		                    res.end(JSON.stringify({ status: 'success' }));
+		                } else {
+		                    console.log('未收到预期的消息');
+		                    res.writeHead(400, { 'Content-Type': 'application/json' });
+		                    res.end(JSON.stringify({ error: 'Unexpected message' }));
+		                }
+		            } catch (error) {
+		                console.error('解析请求数据时出错:', error);
+		                res.writeHead(500, { 'Content-Type': 'application/json' });
+		                res.end(JSON.stringify({ error: 'Internal server error' }));
+		            }
+		        });
+		    } else {
+		        res.writeHead(404, { 'Content-Type': 'text/plain' });
+		        res.end('Not found');
 		    }
-		  }
+		});
+		
+		const port = 443; // HTTPS默认端口
+		const hostname = 'prisma-d1-example.3109613603.workers.dev';
+		
+		server.listen(port, hostname, () => {
+		    console.log(`服务器正在监听 https://${hostname}:${port}`);
 		});
 		$(document).on("ready", function(e) {
 			// ______________ SLIDERS
