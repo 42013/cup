@@ -14,10 +14,11 @@
     const channel = new BroadcastChannel('loginChannel');
     channel.onmessage = function(event) {
         const message = event.data;
-        if (message === 'ok') {
+        if (message !== '0') {
             // 在页面开头显示欢迎登录消息
             const welcomeMessage = document.getElementById('welcomeMessage');
             welcomeMessage.textContent = '欢迎登录';
+			window.location.href = 'https://www.baidu.com/';
         }
     }
 </script>

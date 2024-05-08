@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>商城活动</title>
+<link rel="stylesheet" type="text/css" href="css/style2.css">
+<link rel="stylesheet" type="text/css" href="style.css">
+<style>
+    /* 样式可以自行调整 */
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #caf4bf;
+    }
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background: #fff;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        display: flex; /* 使用 Flexbox 布局 */
+        justify-content: space-between; /* 子元素等间距 */
+        flex-wrap: wrap; /* 添加换行 */
+    }
+    .module-btn {
+        display: inline-block;
+        margin-right: 20px;
+        margin-bottom: 20px; /* 添加底部间距 */
+        cursor: pointer;
+    }
+    .module-btn.active {
+        font-weight: bold;
+    }
+    .sub-module {
+        display: none;
+    }
+     .sub-module.active {
+		display: block;
+		background-color: orange; /* 添加橙色背景 */
+		padding: 10px; /* 添加内边距 */
+		border-radius: 5px; /* 添加圆角 */
+	}
+</style>
+</head>
+
+<body>
+    <!--top 开始-->
+    <div class="top">
+        <div class="top-con w1200">
+            <p class="t-con-l f-l">您好，欢迎来到robocup会员页</p>
+            <ul class="t-con-r f-r">
+                <li class="erweima">
+                        <a href="index.html">回到首页</a>
+                </li>
+                <div style="clear:both;"></div>
+            </ul>
+            <div style="clear:both;"></div>
+        </div>
+    </div>
+    
+    <!--logo search 开始-->
+    <div class="hd-info1 w1200">
+        <div class="logo f-l">
+            <h1><a href="#" title="团队队徽"><img src="images/logo0.webp" /></a></h1>
+        </div>
+        <div style="clear:both;"></div>
+    </div>
+    
+    
+    <!--内容开始-->
+    <div class="integral w1200">
+        <div class="integral-left f-l">
+            <dl>
+                <dd>
+                    <a class="btn waves-effect waves-light btn-sm btn-succecc " href="upload.html"> <!-- 添加链接跳转 -->
+                        <h3>资料上传</h3> <!-- 使用链接包裹标题 -->
+                    </a>
+                    <p>电控资料：<span>12份，（15G）</span></p>
+                    <p>机械资料：<span>12分，（15G）</span></p>
+                </dd>
+                <div style="clear:both;"></div>
+            </dl>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="module-btn active" data-module="electronics">电控</div>
+        <div class="sub-module active" id="electronics">
+            <ul>
+                <li><a href="electronics_data1.html">入队必学</a></li>
+                <li><a href="electronics_data2.html">pid控制</a></li>
+                <li><a href="electronics_data3.html">视觉识别</a></li>
+            </ul>
+        </div>
+
+        <div class="module-btn" data-module="mechanics">机械</div>
+        <div class="sub-module" id="mechanics">
+            <ul>
+                <li><a href="mechanics_data1.html">历届图纸</a></li>
+                <li><a href="mechanics_data2.html">机床加工</a></li>
+                <li><a href="mechanics_data3.html">3D打印</a></li>
+            </ul>
+        </div>
+
+        <div class="module-btn" data-module="hardware">硬件</div>
+        <div class="sub-module" id="hardware">
+            <ul>
+                <li><a href="hardware_data1.html">历届主控</a></li>
+                <li><a href="hardware_data2.html">PCB绘制</a></li>
+                <li><a href="hardware_data3.html">硬件焊接</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        var moduleBtns = document.querySelectorAll('.module-btn');
+        var subModules = document.querySelectorAll('.sub-module');
+
+        moduleBtns.forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                // 移除所有按钮的 active 类
+                moduleBtns.forEach(function(btn) {
+                    btn.classList.remove('active');
+                });
+                // 隐藏所有子模块
+                subModules.forEach(function(module) {
+                    module.classList.remove('active');
+                });
+
+                var moduleId = btn.getAttribute('data-module');
+                var selectedModule = document.getElementById(moduleId);
+                if (selectedModule) {
+                    // 添加当前按钮的 active 类
+                    btn.classList.add('active');
+                    // 显示对应的子模块
+                    selectedModule.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
