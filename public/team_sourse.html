@@ -85,7 +85,7 @@
     </div>
 
     <div class="container">
-        <div class="module-btn active" data-module="electronics">电控</div>
+        <div class="module-btn active" data-module="electronics" @click="toggleModule('electronics')">电控</div>
         <div class="sub-module active" id="electronics">
             <ul>
                 <li><a href="electronics_data1.html">入队必学</a></li>
@@ -94,7 +94,7 @@
             </ul>
         </div>
 
-        <div class="module-btn" data-module="mechanics">机械</div>
+        <div class="module-btn" data-module="mechanics" @click="toggleModule('mechanics')">机械</div>
         <div class="sub-module" id="mechanics">
             <ul>
                 <li><a href="mechanics_data1.html">历届图纸</a></li>
@@ -103,7 +103,7 @@
             </ul>
         </div>
 
-        <div class="module-btn" data-module="hardware">硬件</div>
+        <div class="module-btn" data-module="hardware" @click="toggleModule('hardware')">硬件</div>
         <div class="sub-module" id="hardware">
             <ul>
                 <li><a href="hardware_data1.html">历届主控</a></li>
@@ -113,59 +113,59 @@
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
-		function getCookie(cookieName) {
-		    var cookies = document.cookie.split(';');
-		    for (var i = 0; i < cookies.length; i++) {
-		        var cookie = cookies[i].trim();
-		        if (cookie.startsWith(cookieName + '=')) {
-		            return cookie.substring(cookieName.length + 1);
-		        }
-		    }
-		    return null;
-		}
-		
-		function initAffirmWTMore(){  
-		    var wtId = getCookie('testcookie'); // 修正这里，传递正确的 cookie 名称
-		    console.log(wtId);
-		
-		    // 将 Cookie 值显示在页面上
-		    var cookieValueDiv = document.getElementById("cookieValue");
-		    if (wtId !== null) {
-		        cookieValueDiv.textContent = "Cookie 值为：" + wtId;
-		    } else {
-		        cookieValueDiv.textContent = "Cookie 未找到";
-		    }
-		}
-		
-		window.onload = function() {
-		    initAffirmWTMore();
-		};
-		
-        var moduleBtns = document.querySelectorAll('.module-btn');
-        var subModules = document.querySelectorAll('.sub-module');
+      new Vue({
+        el: '#app',
+        methods: {
+          toggleModule(moduleId) {
+            const moduleBtns = document.querySelectorAll('.module-btn');
+            const subModules = document.querySelectorAll('.sub-module');
 
-        moduleBtns.forEach(function(btn) {
-            btn.addEventListener('click', function() {
-                // 移除所有按钮的 active 类
-                moduleBtns.forEach(function(btn) {
-                    btn.classList.remove('active');
-                });
-                // 隐藏所有子模块
-                subModules.forEach(function(module) {
-                    module.classList.remove('active');
-                });
-
-                var moduleId = btn.getAttribute('data-module');
-                var selectedModule = document.getElementById(moduleId);
-                if (selectedModule) {
-                    // 添加当前按钮的 active 类
-                    btn.classList.add('active');
-                    // 显示对应的子模块
-                    selectedModule.classList.add('active');
-                }
+            // 移除所有按钮的 active 类
+            moduleBtns.forEach(btn => {
+              btn.classList.remove('active');
             });
-        });
+            // 隐藏所有子模块
+            subModules.forEach(module => {
+              module.classList.remove('active');
+            });
+
+            const selectedModule = document.getElementById(moduleId);
+            if (selectedModule) {
+              // 添加当前按钮的 active 类
+              event.target.classList.add('active');
+              // 显示对应的子模块
+              selectedModule.classList.add('active');
+            }
+          },
+          getCookie(cookieName) {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+              const cookie = cookies[i].trim();
+              if (cookie.startsWith(cookieName + '=')) {
+                return cookie.substring(cookieName.length + 1);
+              }
+            }
+            return null;
+          },
+          initAffirmWTMore() {
+            const wtId = this.getCookie('testcookie'); // 修正这里，传递正确的 cookie 名称
+            console.log(wtId);
+
+            // 将 Cookie 值显示在页面上
+            const cookieValueDiv = document.getElementById('cookieValue');
+            if (wtId !== null) {
+              cookieValueDiv.textContent = 'Cookie 值为：' + wtId;
+            } else {
+              cookieValueDiv.textContent = 'Cookie 未找到';
+            }
+          }
+        },
+        mounted() {
+          this.initAffirmWTMore();
+        }
+      });
     </script>
 </body>
 </html>
