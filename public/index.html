@@ -570,23 +570,6 @@
 		    }
     </script>
 	<script>
-		    document.addEventListener('touchstart', function(event) {
-		        if (event.touches.length > 1) {
-		            event.preventDefault()
-		        }
-		    },{
-		        capture: false,
-		        passive: false
-		    });
-		
-		    document.addEventListener('touchmove', function(event) {
-		        event.preventDefault()
-		    },{
-		        capture: false,
-		        passive: false
-		    });
-
-		
 		document.addEventListener('mousewheel', function (event) {
 		        event = event || window.event;
 		        if ((event.wheelDelta && event.ctrlKey)) {
