@@ -559,17 +559,6 @@
 	<script src="js/jquery.countdown.js"></script>
 	<script src="js/custom.js"></script>
 	<script>
-		const channel = new BroadcastChannel('loginChannel');
-		    channel.onmessage = function(event) {
-		        const message = event.data;
-		        if (message === 'ok') {
-		            // 在页面开头显示欢迎登录消息
-		            const welcomeMessage = document.getElementById('welcomeMessage');
-		            welcomeMessage.textContent = '欢迎登录';
-		        }
-		    }
-    </script>
-	<script>
 		document.addEventListener('mousewheel', function (event) {
 		        event = event || window.event;
 		        if ((event.wheelDelta && event.ctrlKey)) {
