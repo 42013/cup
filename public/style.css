@@ -1299,11 +1299,6 @@ ol.breadcrumb{margin:inherit;}
 .r-tabs .r-tabs-panel{padding:0px;}
 .faq .collapse.in:before{display:none;}
 .faq .panel-heading a{font-size:12px;}
-.vps-prices-container{padding-top:25px;}
-.vps-prices-panel .align-right{float:inherit !important;}
-a.vpsbtn-orde{width:100% !important;margin-top:5px!important;}
-.vps-prices-drag .btn{width:100%;padding:10px 20px !important;}
-.vps-prices-drag{margin-bottom:15px !important;}
 .pricingtables.vps{padding:15px 0;}
 .pricingtables ul li{font-size:12px;}
 h2{font-size:16px;}
@@ -1397,7 +1392,7 @@ ol.breadcrumb li:first-child{display:none;}
 .topminibar .col-xs-12,.topminibar .text-right{text-align:center !important;}
 .topminibar .btn{margin:5px 0;}
 .topminibar .col-xs-12:first-child{border-bottom:1px solid #e8e8e8;}
-}
+
 
 @media only screen and (max-width: 767px) {
 #sub-banner {display: none; !important;}
